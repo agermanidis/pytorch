@@ -5,6 +5,7 @@ from collections import defaultdict
 from functools import partial
 from importlib import import_module
 from typing import Set
+import os
 
 from functorch._src.compilers import debug_nop
 
@@ -40,7 +41,11 @@ def aot_autograd(**kwargs):
 
         # TODO: stop monkeypatching here (without even cleaning up, UGH!)
         functorch.compile.config.use_functionalize = True
-        functorch.compile.config.use_fake_tensor = True
+
+        # torchxla does not work with FakeTensor
+        functorch.compile.config.use_fake_tensor = (
+            os.environ.get("USE_FAKE_TENSOR", "1") == "1"
+        )
 
         force_compile_tiny_graphs = kwargs.pop("force_compile_tiny_graphs", False)
 
@@ -365,6 +370,14 @@ def cudagraphs(model, inputs):
 
 aot_cudagraphs = aot_autograd(fw_compiler=cudagraphs, bw_compiler=cudagraphs)
 
+aot_torchxla_trivial = aot_autograd(
+    fw_compiler=BACKENDS["torchxla_trivial"],
+)
+
+aot_torchxla_trace_once = aot_autograd(
+    fw_compiler=BACKENDS["torchxla_trace_once"],
+)
+
 
 def create_aot_backends():
     """
@@ -401,3 +414,6 @@ def create_aot_backends():
     # aot_inductor_debug just replaces the inductor compiler with nop to help
     # isolate inductor vs aot_eager errors
     BACKENDS["aot_inductor_debug"] = aot_inductor_debug
+
+    BACKENDS["aot_torchxla_trivial"] = aot_torchxla_trivial
+    BACKENDS["aot_torchxla_trace_once"] = aot_torchxla_trace_once

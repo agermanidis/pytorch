@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from myscripts import workaround # TODO will remove this line before landing
 import gc
 import importlib
 import logging
@@ -54,6 +55,13 @@ USE_SMALL_BATCH_SIZE = {
     "densenet121": 4,
     "hf_Reformer": 4,
     "timm_efficientdet": 1,
+
+    # TODO: what's the better way to override batch size.
+    # Will the change here affect other scripts?
+    "mobilenet_v2": 16,
+    "BERT_pytorch": 2,
+    "vgg16": 8,
+    "resnet50": 16,
 }
 
 DETECTRON2_MODELS = {
@@ -192,6 +200,7 @@ class TorchBenchmarkRunner(BenchmarkRunner):
     def __init__(self):
         super(TorchBenchmarkRunner, self).__init__()
         self.suite_name = "torchbench"
+        self.optimizer = None
 
     @property
     def skip_models(self):
@@ -304,6 +313,10 @@ class TorchBenchmarkRunner(BenchmarkRunner):
         # global current_name, current_device
         # current_device = device
         # current_name = benchmark.name
+
+        if self.args.trace_on_xla:
+            # work around for: https://github.com/pytorch/xla/issues/4174
+            import torch_xla
         self.validate_model(model, example_inputs)
         return device, benchmark.name, model, example_inputs, batch_size
 
@@ -362,6 +375,7 @@ class TorchBenchmarkRunner(BenchmarkRunner):
             loss = self.compute_loss(pred)
         self.grad_scaler.scale(loss).backward()
         self.optimizer_step()
+
         if collect_outputs:
             return collect_results(mod, pred, loss, cloned_inputs)
         return None
