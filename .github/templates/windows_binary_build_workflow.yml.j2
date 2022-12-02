@@ -56,7 +56,10 @@ jobs:
 {%- for config in build_configs %}
   !{{ config["build_name"] }}-build:
     if: ${{ github.repository_owner == 'pytorch' }}
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: !{{ common.timeout_minutes }}
     !{{ upload.binary_env(config, True) }}
     steps:
@@ -83,11 +86,10 @@ jobs:
   !{{ config["build_name"] }}-test:  # Testing
     if: ${{ github.repository_owner == 'pytorch' }}
     needs: !{{ config["build_name"] }}-build
-{%- if config["gpu_arch_type"] == "cuda" %}
-    runs-on: windows.8xlarge.nvidia.gpu
-{%- else %}
-    runs-on: windows.4xlarge
-{%- endif %}
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: !{{ common.timeout_minutes }}
     !{{ upload.binary_env(config, True) }}
     steps:

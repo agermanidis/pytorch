@@ -34,7 +34,10 @@ concurrency:
 jobs:
   libtorch-cpu-shared-with-deps-release-build:
     if: ${{ github.repository_owner == 'pytorch' }}
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -142,7 +145,10 @@ jobs:
   libtorch-cpu-shared-with-deps-release-test:  # Testing
     if: ${{ github.repository_owner == 'pytorch' }}
     needs: libtorch-cpu-shared-with-deps-release-build
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -270,7 +276,10 @@ jobs:
     uses: ./.github/workflows/_binary-upload.yml
   libtorch-cpu-shared-without-deps-release-build:
     if: ${{ github.repository_owner == 'pytorch' }}
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -378,7 +387,10 @@ jobs:
   libtorch-cpu-shared-without-deps-release-test:  # Testing
     if: ${{ github.repository_owner == 'pytorch' }}
     needs: libtorch-cpu-shared-without-deps-release-build
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -506,7 +518,10 @@ jobs:
     uses: ./.github/workflows/_binary-upload.yml
   libtorch-cpu-static-with-deps-release-build:
     if: ${{ github.repository_owner == 'pytorch' }}
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -614,7 +629,10 @@ jobs:
   libtorch-cpu-static-with-deps-release-test:  # Testing
     if: ${{ github.repository_owner == 'pytorch' }}
     needs: libtorch-cpu-static-with-deps-release-build
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -742,7 +760,10 @@ jobs:
     uses: ./.github/workflows/_binary-upload.yml
   libtorch-cpu-static-without-deps-release-build:
     if: ${{ github.repository_owner == 'pytorch' }}
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -850,7 +871,10 @@ jobs:
   libtorch-cpu-static-without-deps-release-test:  # Testing
     if: ${{ github.repository_owner == 'pytorch' }}
     needs: libtorch-cpu-static-without-deps-release-build
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -978,7 +1002,10 @@ jobs:
     uses: ./.github/workflows/_binary-upload.yml
   libtorch-cuda11_6-shared-with-deps-release-build:
     if: ${{ github.repository_owner == 'pytorch' }}
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -1087,7 +1114,10 @@ jobs:
   libtorch-cuda11_6-shared-with-deps-release-test:  # Testing
     if: ${{ github.repository_owner == 'pytorch' }}
     needs: libtorch-cuda11_6-shared-with-deps-release-build
-    runs-on: windows.8xlarge.nvidia.gpu
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -1217,7 +1247,10 @@ jobs:
     uses: ./.github/workflows/_binary-upload.yml
   libtorch-cuda11_6-shared-without-deps-release-build:
     if: ${{ github.repository_owner == 'pytorch' }}
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -1326,7 +1359,10 @@ jobs:
   libtorch-cuda11_6-shared-without-deps-release-test:  # Testing
     if: ${{ github.repository_owner == 'pytorch' }}
     needs: libtorch-cuda11_6-shared-without-deps-release-build
-    runs-on: windows.8xlarge.nvidia.gpu
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -1456,7 +1492,10 @@ jobs:
     uses: ./.github/workflows/_binary-upload.yml
   libtorch-cuda11_6-static-with-deps-release-build:
     if: ${{ github.repository_owner == 'pytorch' }}
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -1565,7 +1604,10 @@ jobs:
   libtorch-cuda11_6-static-with-deps-release-test:  # Testing
     if: ${{ github.repository_owner == 'pytorch' }}
     needs: libtorch-cuda11_6-static-with-deps-release-build
-    runs-on: windows.8xlarge.nvidia.gpu
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -1695,7 +1737,10 @@ jobs:
     uses: ./.github/workflows/_binary-upload.yml
   libtorch-cuda11_6-static-without-deps-release-build:
     if: ${{ github.repository_owner == 'pytorch' }}
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -1804,7 +1849,10 @@ jobs:
   libtorch-cuda11_6-static-without-deps-release-test:  # Testing
     if: ${{ github.repository_owner == 'pytorch' }}
     needs: libtorch-cuda11_6-static-without-deps-release-build
-    runs-on: windows.8xlarge.nvidia.gpu
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -1934,7 +1982,10 @@ jobs:
     uses: ./.github/workflows/_binary-upload.yml
   libtorch-cuda11_7-shared-with-deps-release-build:
     if: ${{ github.repository_owner == 'pytorch' }}
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -2043,7 +2094,10 @@ jobs:
   libtorch-cuda11_7-shared-with-deps-release-test:  # Testing
     if: ${{ github.repository_owner == 'pytorch' }}
     needs: libtorch-cuda11_7-shared-with-deps-release-build
-    runs-on: windows.8xlarge.nvidia.gpu
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -2173,7 +2227,10 @@ jobs:
     uses: ./.github/workflows/_binary-upload.yml
   libtorch-cuda11_7-shared-without-deps-release-build:
     if: ${{ github.repository_owner == 'pytorch' }}
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -2282,7 +2339,10 @@ jobs:
   libtorch-cuda11_7-shared-without-deps-release-test:  # Testing
     if: ${{ github.repository_owner == 'pytorch' }}
     needs: libtorch-cuda11_7-shared-without-deps-release-build
-    runs-on: windows.8xlarge.nvidia.gpu
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -2412,7 +2472,10 @@ jobs:
     uses: ./.github/workflows/_binary-upload.yml
   libtorch-cuda11_7-static-with-deps-release-build:
     if: ${{ github.repository_owner == 'pytorch' }}
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -2521,7 +2584,10 @@ jobs:
   libtorch-cuda11_7-static-with-deps-release-test:  # Testing
     if: ${{ github.repository_owner == 'pytorch' }}
     needs: libtorch-cuda11_7-static-with-deps-release-build
-    runs-on: windows.8xlarge.nvidia.gpu
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -2651,7 +2717,10 @@ jobs:
     uses: ./.github/workflows/_binary-upload.yml
   libtorch-cuda11_7-static-without-deps-release-build:
     if: ${{ github.repository_owner == 'pytorch' }}
-    runs-on: windows.4xlarge
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
@@ -2760,7 +2829,10 @@ jobs:
   libtorch-cuda11_7-static-without-deps-release-test:  # Testing
     if: ${{ github.repository_owner == 'pytorch' }}
     needs: libtorch-cuda11_7-static-without-deps-release-build
-    runs-on: windows.8xlarge.nvidia.gpu
+    with:
+        build-environment: win-vs2019-cuda11.6-py3
+        cuda-version: "11.6"
+        sync-tag: win-cuda-build
     timeout-minutes: 240
     env:
       PYTORCH_ROOT: ${{ github.workspace }}/pytorch
