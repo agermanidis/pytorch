@@ -2,6 +2,7 @@
 
 import contextlib
 import io
+import tempfile
 import unittest
 
 import numpy as np
@@ -258,6 +259,16 @@ class TestFindMismatch(pytorch_test_common.ExportTestCase):
                 options=verification.VerificationOptions(backend=self.onnx_backend),
             )
         self.assertExpected(f.getvalue())
+
+    def test_export_repro_for_mismatch(self):
+        mismatch_leaves = self.graph_info.all_mismatch_leaf_graph_info()
+        self.assertTrue(len(mismatch_leaves) > 0)
+        leaf_info = mismatch_leaves[0]
+        with tempfile.TemporaryDirectory() as temp_dir:
+            repro_dir = leaf_info.export_repro(temp_dir.name)
+
+            with self.assertRaisesRegex(AssertionError, "Tensor-likes are not close!"):
+                verification.OnnxTestCaseRepro(repro_dir).validate(self.onnx_backend)
 
 
 if __name__ == "__main__":
